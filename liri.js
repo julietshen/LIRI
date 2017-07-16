@@ -2,7 +2,7 @@
 
 const myKeys = require("./keys.js");
 
-
+var fs = require("file-system");
 var request = require("request");
 var Twitter = require("twitter");
 var Spotify = require('node-spotify-api');
@@ -27,18 +27,28 @@ var commandsArray = [
 
 console.log(command);
 
-//twitter
-if (command == "my-tweets") {
+
+switch(ask) {
+    case "my-tweets":
     commandTwitter();
-} else if (command == "spotify-this-song") {
+    break;
+
+    case "spotify-this-song":
     commandSpotify();
-} else if (command == "movie-this") {
-    console.log("Movies coming soon");
-} else if (command == "do-what-it-says") {
-    console.log("Robots coming soon");
-} else {
-    console.log("something is wrong");
+    break;
+
+    case "movie-this":
+    commandMovie();
+    break;
+
+    case "do-what-it-says":
+    commandRandom();
+    break;
+
+    default:
+    console.log("")
 }
+
 
 function commandTwitter() {
     var client = new Twitter(myKeys.twitterKeys)
@@ -95,12 +105,11 @@ function commandMovie() {
 
 //saves the console logs into a txt file
 
-// var fs = require("fs");
-// fs.writeFile("/liri-node-app/log.txt", function(err) {
-// 	if(err) {
-// 		console.log(err);
-// 	}
-// 	console.log("Logs saved.");
-//  });
+fs.writeFile("log.txt", function(err) {
+ 	if(err) {
+ 		console.log(err);
+ 	}
+ 	console.log("Logs saved.");
+  });
 
 
